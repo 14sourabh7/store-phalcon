@@ -14,8 +14,8 @@ class Userdetails extends Model
     public function getUserDetails($id)
     {
 
-        $data = Userdetails::find($id);
-        return json_encode($data);
+        $data = Userdetails::findFirst($id);
+        return $data;
     }
     public function updateUserDetail($id, $name, $email, $mobile, $address, $pin)
     {

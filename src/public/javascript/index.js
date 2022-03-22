@@ -65,7 +65,7 @@ $(document).ready(function () {
   // function to add products to cart
   $("body").on("click", ".add-to-cart", function () {
     $.ajax({
-      url: "/cart/operation",
+      url: "/order/cartoperation",
       method: "post",
       data: {
         action: "add",
@@ -88,7 +88,7 @@ $(document).ready(function () {
   $("#signinBtn").click(function () {
     sessionStorage.clear();
     if (!sessionStorage.getItem("login")) {
-      location.replace("/login");
+      location.replace("/user");
     }
   });
 });

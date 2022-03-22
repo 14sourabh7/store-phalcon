@@ -25,7 +25,7 @@ $(document).ready(function () {
 
   $(".add-to-cart").click(function () {
     $.ajax({
-      url: "/cart/operation",
+      url: "/order/cartoperation",
       method: "post",
       data: {
         action: "add",

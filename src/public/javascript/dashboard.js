@@ -30,14 +30,14 @@ $(document).ready(function () {
       userProfile();
     }
   } else {
-    location.replace("/login");
+    location.replace("/user");
   }
 
   // event listener to log out user
   $("#signout").click(function () {
     sessionStorage.clear();
     if (!sessionStorage.getItem("login")) {
-      location.replace("/login");
+      location.replace("/user");
     }
   });
 
@@ -662,7 +662,7 @@ $(document).ready(function () {
         } else {
           // code to check email already exists
           $.ajax({
-            url: "/signup/checkemail",
+            url: "/user/checkemail",
             method: "post",
             data: {
               email: email,
@@ -678,7 +678,7 @@ $(document).ready(function () {
 
               // ajax call to add user
               $.ajax({
-                url: "/signup/register",
+                url: "/user/register",
                 method: "post",
                 data: {
                   email: email,

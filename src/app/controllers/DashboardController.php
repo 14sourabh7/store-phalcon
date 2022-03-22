@@ -14,7 +14,7 @@ class DashboardController extends Controller
         $userdetails = new Userdetails();
         $order = new Orders();
         $product = new Products();
-        $action = $_POST['action'];
+        $action = $this->request->getPost()['action'];
         switch ($action) {
             case 'getUsers':
                 return $user->getUsers();
@@ -33,16 +33,22 @@ class DashboardController extends Controller
                 return $userdetails->updateUserDetail($id, $name, $email, $mobile, $address, $pin);
                 break;
             case 'deleteUser':
-                return $user->deleteUser($_POST['user_id']);
+                $id = $this->request->getPost()['user_id'];
+                return $user->deleteUser($id);
                 break;
             case 'updateStatus':
-                return $user->updateStatus($_POST['user_id'], $_POST['column'], $_POST['status']);
+                $id = $this->request->getPost()['user_id'];
+                $status = $this->request->getPost()['status'];
+                $column = $this->request->getPost()['column'];
+                return $user->updateStatus($id, $column, $status);
                 break;
             case 'getAllOrders':
                 return $order->getAllOrders();
                 break;
             case 'updateOrderStatus':
-                return $order->updateOrderStatus($_POST['order_id'], $_POST['status']);
+                $id = $this->request->getPost()['order_id'];
+                $status = $this->request->getPost()['status'];
+                return $order->updateOrderStatus($id, $status);
                 break;
             case 'getProducts':
                 return $product->getProducts();

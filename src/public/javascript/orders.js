@@ -2,7 +2,7 @@ $(document).ready(function () {
   if (sessionStorage.getItem("login") == "1") {
     getOrders();
   } else {
-    location.replace("/login");
+    location.replace("/user");
   }
 });
 
@@ -19,7 +19,7 @@ if (sessionStorage.getItem("login") == 1) {
 $("#signinBtn").click(function () {
   sessionStorage.clear();
   if (!sessionStorage.getItem("login")) {
-    location.replace("/login");
+    location.replace("/user");
   }
 });
 

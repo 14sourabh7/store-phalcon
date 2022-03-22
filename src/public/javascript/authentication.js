@@ -14,7 +14,7 @@ $(document).ready(function () {
         $("#error").html(emailErr);
       } else {
         $.ajax({
-          url: "/login/checkuser",
+          url: "/user/checkuser",
           method: "post",
           data: { action: "signin", email: email, password: password },
           dataType: "json",
@@ -59,7 +59,7 @@ $(document).ready(function () {
         } else {
           // code to check email already exists
           $.ajax({
-            url: "/signup/checkemail",
+            url: "/user/checkemail",
             method: "post",
             data: {
               action: "validateEmail",
@@ -76,7 +76,7 @@ $(document).ready(function () {
 
               // ajax call to add user
               $.ajax({
-                url: "/signup/register",
+                url: "/user/register",
                 method: "post",
                 data: {
                   action: "addUser",
@@ -87,7 +87,7 @@ $(document).ready(function () {
                 dataType: "JSON",
               }).done((data) => {
                 console.log("replacing");
-                location.replace("/login");
+                location.replace("/user");
               });
             }
           });

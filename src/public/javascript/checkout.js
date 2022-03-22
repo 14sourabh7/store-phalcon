@@ -3,7 +3,7 @@ var quant;
 var items = [];
 $(document).ready(function () {
   $.ajax({
-    url: "/cart/operation",
+    url: "/order/cartoperation",
     method: "post",
     data: { action: "get" },
     dataType: "JSON",
@@ -13,7 +13,7 @@ $(document).ready(function () {
     display(data);
   });
   $.ajax({
-    url: "/checkout/operation",
+    url: "/order/checkoutoperation",
     method: "post",
     data: {
       action: "getUserDetails",
@@ -63,7 +63,7 @@ $(document).ready(function () {
         }).done((data) => {
           if (data > 0) {
             $.ajax({
-              url: "/cart/operation",
+              url: "/order/cartoperation",
               method: "post",
               data: { action: "empty" },
               dataType: "JSON",
@@ -97,7 +97,7 @@ $(document).ready(function () {
   $("#signinBtn").click(function () {
     sessionStorage.clear();
     if (!sessionStorage.getItem("login")) {
-      location.replace("/login");
+      location.replace("/user");
     }
   });
 });

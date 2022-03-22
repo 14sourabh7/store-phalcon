@@ -1,7 +1,7 @@
 var gt = 0;
 $(document).ready(function () {
   $.ajax({
-    url: "/cart/operation",
+    url: "/order/cartoperation",
     method: "post",
     data: { action: "get" },
     dataType: "JSON",
@@ -16,7 +16,7 @@ $(document).ready(function () {
   $(".cartData").on("click", ".btnOpr", function (e) {
     e.preventDefault();
     $.ajax({
-      url: "/cart/operation",
+      url: "/order/cartoperation",
       method: "post",
       data: { id: $(this).data("id"), action: $(this).data("op") },
       dataType: "json",
@@ -27,9 +27,9 @@ $(document).ready(function () {
 
   $(".checkOut").click(function () {
     if (sessionStorage.getItem("login") == "1") {
-      gt > 0 && location.replace("/checkout");
+      gt > 0 && location.replace("/order/checkout");
     } else {
-      location.replace("/login");
+      location.replace("/user");
     }
   });
 
@@ -42,7 +42,7 @@ $(document).ready(function () {
   $("#signinBtn").click(function () {
     sessionStorage.clear();
     if (!sessionStorage.getItem("login")) {
-      location.replace("/login");
+      location.replace("/user");
     }
   });
 });

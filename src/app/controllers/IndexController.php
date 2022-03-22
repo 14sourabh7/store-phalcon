@@ -12,10 +12,11 @@ class IndexController extends Controller
     public function operationAction()
     {
         $product = new Products();
-        $action = $_POST['action'];
+        $action = $this->request->getPost()['action'];
         switch ($action) {
             case 'getFilterProducts':
-                return $_POST['filter'] == 'All' ? $product->getProducts() : $product->getFilterProducts($_POST['filter']);
+                $filter = $this->request->getPost()['filter'];
+                return $filter == 'All' ? $product->getProducts() : $product->getFilterProducts($filter);
                 break;
             case 'getProducts':
                 return $product->getProducts();
