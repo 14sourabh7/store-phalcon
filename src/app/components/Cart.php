@@ -1,6 +1,6 @@
 <?php
 
-use Phalcon\Mvc\Model;
+namespace App\Components;
 
 class Cart
 {

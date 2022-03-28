@@ -24,12 +24,13 @@ class DashboardController extends Controller
                 return $userdetails->getUserDetails($id);
                 break;
             case 'updateUserDetail':
-                $name = $this->request->getPost()['name'];
-                $email = $this->request->getPost()['email'];
-                $mobile = $this->request->getPost()['mobile'];
-                $pin = $this->request->getPost()['pin'];
-                $address = $this->request->getPost()['address'];
-                $id = $this->request->getPost()['user_id'];
+                $escaper = new \App\Components\Myescaper();
+                $name = $escaper->sanitize($this->request->getPost()['name']);
+                $email = $escaper->sanitize($this->request->getPost()['email']);
+                $mobile = $escaper->sanitize($this->request->getPost()['mobile']);
+                $pin = $escaper->sanitize($this->request->getPost()['pin']);
+                $address = $escaper->sanitize($this->request->getPost()['address']);
+                $id = $escaper->sanitize($this->request->getPost()['user_id']);
                 return $userdetails->updateUserDetail($id, $name, $email, $mobile, $address, $pin);
                 break;
             case 'deleteUser':
@@ -54,12 +55,13 @@ class DashboardController extends Controller
                 return $product->getProducts();
                 break;
             case 'addNewProduct':
-                $name = $this->request->getPost()['name'];
-                $brand = $this->request->getPost()['brand'];
-                $category = $this->request->getPost()['category'];
-                $price = $this->request->getPost()['price'];
-                $discount = $this->request->getPost()['discount'];
-                $description = $this->request->getPost()['description'];
+                $escaper = new \App\Components\Myescaper();
+                $name = $escaper->sanitize($this->request->getPost()['name']);
+                $brand = $escaper->sanitize($this->request->getPost()['brand']);
+                $category = $escaper->sanitize($this->request->getPost()['category']);
+                $price = $escaper->sanitize($this->request->getPost()['price']);
+                $discount = $escaper->sanitize($this->request->getPost()['discount']);
+                $description = $escaper->sanitize($this->request->getPost()['description']);
                 return $product->addProduct($name, $brand, $category, $price, $discount, $description);
                 break;
             case 'deleteProduct':
@@ -67,12 +69,13 @@ class DashboardController extends Controller
                 return $product->deleteProduct($id);
                 break;
             case 'updateProduct':
-                $name = $this->request->getPost()['name'];
-                $brand = $this->request->getPost()['brand'];
-                $category = $this->request->getPost()['category'];
-                $price = $this->request->getPost()['price'];
-                $discount = $this->request->getPost()['discount'];
-                $id = $this->request->getPost()['product_id'];
+                $escaper = new \App\Components\Myescaper();
+                $name = $escaper->sanitize($this->request->getPost()['name']);
+                $brand = $escaper->sanitize($this->request->getPost()['brand']);
+                $category = $escaper->sanitize($this->request->getPost()['category']);
+                $price = $escaper->sanitize($this->request->getPost()['price']);
+                $discount = $escaper->sanitize($this->request->getPost()['discount']);
+                $id = $escaper->sanitize($this->request->getPost()['product_id']);
                 return $product->updateProduct($id, $name, $brand, $category, $price, $discount);
                 break;
         }

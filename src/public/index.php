@@ -29,6 +29,11 @@ $loader->registerDirs(
         APP_PATH . "/models/",
     ]
 );
+$loader->registerNamespaces(
+    [
+        'App\Components' => APP_PATH . "/components"
+    ]
+);
 
 $loader->register();
 

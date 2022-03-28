@@ -55,7 +55,7 @@ class OrderController extends Controller
     public function cartoperationAction()
     {
         $this->session->start();
-        $cart = new Cart();
+        $cart = new \App\Components\Cart();
         $action = $this->request->getPost()['action'];
         switch ($action) {
             case 'add':
@@ -68,9 +68,10 @@ class OrderController extends Controller
                 $name = $this->request->getPost()['name'];
                 $price = $this->request->getPost()['price'];
                 $cart->setCart(json_decode($this->session->get('cart')));
-                $product = new Product($id, $name, $price);
+                $product = new \App\Components\Product($id, $name, $price);
                 $cart->addToCart($product);
-                $_SESSION['cart'] = json_encode($cart->getCart());
+                // $_SESSION['cart'] = json_encode($cart->getCart());
+                $this->session->set('cart', json_encode($cart->getCart()));
                 return ($this->session->get('cart'));
             case 'get':
                 return $this->session->get('cart');

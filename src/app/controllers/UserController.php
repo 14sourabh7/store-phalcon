@@ -9,9 +9,10 @@ class UserController extends Controller
     }
     public function checkuserAction()
     {
+        $escaper = new \App\Components\Myescaper();
         $user = new Users();
-        $email = $this->request->getPost()['email'];
-        $password = $this->request->getPost()['password'];
+        $email = $escaper->sanitize($this->request->getPost()['email']);
+        $password = $escaper->sanitize($this->request->getPost()['password']);
         return $user->checkUser($email, $password);
     }
     public function signupAction()
@@ -22,23 +23,24 @@ class UserController extends Controller
     {
         // return '<h1>registered</h1>';
         $user = new Users();
+        $escaper = new \App\Components\Myescaper();
+        $user->name = $escaper->sanitize($this->request->getPost()['name']);
 
-        $user->name = $this->request->getPost()['name'];
-
-        $user->password = $this->request->getPost()['password'];
-        $user->email = $this->request->getPost()['email'];
+        $user->password = $escaper->sanitize($this->request->getPost()['password']);
+        $user->email = $escaper->sanitize($this->request->getPost()['email']);
         $user->role = 'user';
         $user->status = 'restricted';
 
         $success = $user->save();
-        $email = $this->request->getPost()['email'];
+        $email = $escaper->sanitize($this->request->getPost()['email']);
         $data = Users::find(["email = '$email'"]);
         return json_encode($data);
     }
 
     public function checkemailAction()
     {
-        $email = $this->request->getPost()['email'];
+        $escaper = new \App\Components\Myescaper();
+        $email = $escaper->sanitize($this->request->getPost()['email']);
         $data = Users::find(["email = '$email'"]);
         return json_encode($data);
     }
