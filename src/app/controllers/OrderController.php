@@ -1,5 +1,5 @@
 <?php
-session_start();
+
 
 use Phalcon\Mvc\Controller;
 
@@ -54,51 +54,57 @@ class OrderController extends Controller
      */
     public function cartoperationAction()
     {
+        $this->session->start();
         $cart = new Cart();
         $action = $this->request->getPost()['action'];
         switch ($action) {
             case 'add':
-                if (!isset($_SESSION['cart'])) {
+                if (!$this->session->get('cart')) {
                     $tempArr = array();
-                    $_SESSION['cart'] = json_encode($tempArr);
+                    // $_SESSION['cart'] = json_encode($tempArr);
+                    $this->session->set('cart', json_encode($tempArr));
                 }
                 $id = $this->request->getPost()['id'];
                 $name = $this->request->getPost()['name'];
                 $price = $this->request->getPost()['price'];
-                $cart->setCart(json_decode($_SESSION['cart']));
+                $cart->setCart(json_decode($this->session->get('cart')));
                 $product = new Product($id, $name, $price);
                 $cart->addToCart($product);
                 $_SESSION['cart'] = json_encode($cart->getCart());
-                return ($_SESSION['cart']);
+                return ($this->session->get('cart'));
             case 'get':
-                return ($_SESSION['cart']);
+                return $this->session->get('cart');
                 break;
             case 'increase':
                 $id = $this->request->getPost()['id'];
-                $cart->setCart(json_decode($_SESSION['cart']));
+                $cart->setCart(json_decode($this->session->get('cart')));
                 $cart->increaseQuantity($id);
-                $_SESSION['cart'] = json_encode($cart->getCart());
-                return ($_SESSION['cart']);
+                // $_SESSION['cart'] = json_encode($cart->getCart());
+                $this->session->set('cart', json_encode($cart->getCart()));
+                return ($this->session->get('cart'));
                 break;
             case 'decrease':
                 $id = $this->request->getPost()['id'];
-                $cart->setCart(json_decode($_SESSION['cart']));
+                $cart->setCart(json_decode($this->session->get('cart')));
                 $cart->decreaseQuantity($id);
-                $_SESSION['cart'] = json_encode($cart->getCart());
-                return ($_SESSION['cart']);
+                // $_SESSION['cart'] = json_encode($cart->getCart());
+                $this->session->set('cart', json_encode($cart->getCart()));
+                return ($this->session->get('cart'));
                 break;
             case 'delete':
                 $id = $this->request->getPost()['id'];
-                $cart->setCart(json_decode($_SESSION['cart']));
+                $cart->setCart(json_decode($this->session->get('cart')));
                 $cart->deleteProduct($id);
-                $_SESSION['cart'] = json_encode($cart->getCart());
-                return ($_SESSION['cart']);
+                // $_SESSION['cart'] = json_encode($cart->getCart());
+                $this->session->set('cart', json_encode($cart->getCart()));
+                return ($this->session->get('cart'));
                 break;
             case 'empty':
-                $cart->setCart(json_decode($_SESSION['cart']));
+                $cart->setCart(json_decode($this->session->get('cart')));
                 $cart->clearCart();
-                $_SESSION['cart'] = json_encode($cart->getCart());
-                return ($_SESSION['cart']);
+                // $_SESSION['cart'] = json_encode($cart->getCart());
+                $this->session->set('cart', json_encode($cart->getCart()));
+                return ($this->session->get('cart'));
                 break;
         }
     }
@@ -124,7 +130,7 @@ class OrderController extends Controller
         $action = $this->request->getPost()['action'];
         switch ($action) {
             case 'getUserDetails':
-                $id = $_POST['id'];
+                $id = $this->request->getPost()['id'];
                 $data =  $userdetails->getUserDetails($id);
                 return $data;
                 break;
